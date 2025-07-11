@@ -1,8 +1,14 @@
 import os
+import sys
 from pydub import AudioSegment
 from pydub.effects import normalize
+from io import BytesIO
 
 def process_folder(input_path, output_path, target_dBFS):
+    if not os.path.exists(input_path):
+        print(f"ERROR: Input folder not found: {input_path}")
+        return -1
+        
     os.makedirs(output_path, exist_ok=True)
     processed = 0
     
@@ -17,10 +23,13 @@ def process_folder(input_path, output_path, target_dBFS):
             with open(full_input, 'rb') as f:
                 header = f.read(32)
             
+            audio = None
             if header.startswith(b'RIFF'):
                 audio = AudioSegment.from_wav(full_input)
+                print(f"Detected WAV: {filename}")
             elif header.startswith(b'OggS'):
                 audio = AudioSegment.from_ogg(full_input)
+                print(f"Detected OGG: {filename}")
             else:
                 print(f"Unsupported format: {filename}")
                 continue
@@ -29,7 +38,13 @@ def process_folder(input_path, output_path, target_dBFS):
             change = target_dBFS - normalized.dBFS
             adjusted = normalized.apply_gain(change)
             
-            wav_data = adjusted.export(format='wav').read()
+            buffer = BytesIO()
+            adjusted.export(buffer, format="wav")
+            wav_data = buffer.getvalue()
+            
+            if len(wav_data) < 1024:
+                print(f"WARNING: Small file size ({len(wav_data)} bytes) for {filename}")
+            
             with open(full_output, 'wb') as f:
                 f.write(wav_data)
                 
@@ -42,10 +57,6 @@ def process_folder(input_path, output_path, target_dBFS):
     return processed
 
 def main():
-    print("=" * 50)
-    print("AUDIO NORMALIZATION TOOL")
-    print("=" * 50)
-    
     sfx_input = input("\nEnter SFX folder path: ").strip()
     sfx_output = input("Enter output folder for SFX: ").strip()
     music_input = input("\nEnter Music folder path: ").strip()
@@ -58,26 +69,26 @@ def main():
     print(f"Sound Effects (SFX): {sfx_target} dBFS")
     print(f"Music: {music_target} dBFS")
     
-    print("\n" + "=" * 30)
-    print("PROCESSING SOUND EFFECTS")
-    print("=" * 30)
+    print("\nProcessing SFX...")
     sfx_count = process_folder(sfx_input, sfx_output, sfx_target)
     
-    print("\n" + "=" * 30)
-    print("PROCESSING MUSIC")
-    print("=" * 30)
+    print("\nProcessing music...")
     music_count = process_folder(music_input, music_output, music_target)
-    
-    print("\n" + "=" * 50)
-    print("PROCESSING COMPLETE!")
-    print(f"Sound Effects: {sfx_count} files")
-    print(f"Music tracks: {music_count} files")
-    print("=" * 50)
+   
+    if sfx_count == 0 and music_count == 0:
+        print("\nWARNING: No files processed. Possible issues:")
+        print("1. Input folders contain no .data files")
+        print("2. Unsupported audio formats")
+    elif sfx_count > 0 and music_count > 0:
+        print(f"\nSFX: {sfx_count} files processed")
+        print(f"Music tracks: {music_count} files processed")
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
         print("\nProcessing interrupted by user")
+        sys.exit(1)
     except Exception as e:
         print(f"Critical error: {str(e)}")
+        sys.exit(1)
