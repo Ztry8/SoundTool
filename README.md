@@ -46,36 +46,28 @@ python tool.py
 
 ### Output
 ```
-==================================================
-AUDIO NORMALIZATION TOOL
-==================================================
+Enter SFX folder path: sounds_orig
+Enter output folder for SFX: sounds
 
-Enter SFX folder path: sounds
-Enter output folder for SFX: done_sounds
-
-Enter Music folder path: music
-Enter output folder for Music: done_music
+Enter Music folder path: music_orig
+Enter output folder for Music: music
 
 Using volume targets:
 Sound Effects (SFX): -18.0 dBFS
 Music: -23.0 dBFS
 
-==============================
-PROCESSING SOUND EFFECTS
-==============================
+Processing SFX...
+Detected WAV: melee_attack1.data
 Processed: melee_attack1.data (-13.3dB -> -18.0dB)
-Processed: melee_attack2.data (-14.4dB -> -18.0dB)
-Processed: melee_attack3.data (-17.6dB -> -18.0dB)
+Detected OGG: door_open.data
+Processed: door_open.data (-22.7dB -> -18.8dB)
 
-==============================
-PROCESSING MUSIC
-==============================
+Processing music...
+Detected OGG: day.data
 Processed: day.data (-41.3dB -> -23.0dB)
+Detected OGG: night.data
 Processed: night.data (-40.9dB -> -23.0dB)
 
-==================================================
-PROCESSING COMPLETE!
-Sound Effects: 3 files
-Music tracks: 2 files
-==================================================
+SFX: 2 files processed
+Music tracks: 2 files processed
 ```
