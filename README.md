@@ -8,8 +8,8 @@ For example, the sound of an explosion is usually louder than the sound of foots
 This program adjusts all sounds to the same volume.  
 
 The music folder and SFX folder paths are input.  
-The files in the folders have a .data extension, but the data inside is in .ogg or .wav format.  
-The script puts all the files on the same volume level and saves the data as a .wav file.
+The files in the folders have a .data extension, but the data inside is in .ogg/.wav/.flac format.  
+The script puts all the files on the same volume level and saves the data as a .flac file,
 but in .data file format.
 
 (Processed sounds usually stay the same quality,   
