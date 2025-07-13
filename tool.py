@@ -30,6 +30,9 @@ def process_folder(input_path, output_path, target_dBFS):
             elif header.startswith(b'OggS'):
                 audio = AudioSegment.from_ogg(full_input)
                 print(f"Detected OGG: {filename}")
+            elif header.startswith(b'fLaC'):
+                audio = AudioSegment.from_file(full_input, "flac")
+                print(f"Detected FLAC: {filename}")
             else:
                 print(f"Unsupported format: {filename}")
                 continue
@@ -39,14 +42,14 @@ def process_folder(input_path, output_path, target_dBFS):
             adjusted = normalized.apply_gain(change)
             
             buffer = BytesIO()
-            adjusted.export(buffer, format="wav")
-            wav_data = buffer.getvalue()
+            adjusted.export(buffer, format="flac")
+            flac_data = buffer.getvalue()
             
-            if len(wav_data) < 1024:
-                print(f"WARNING: Small file size ({len(wav_data)} bytes) for {filename}")
+            if len(flac_data) < 1024:
+                print(f"WARNING: Small file size ({len(flac_data)} bytes) for {filename}")
             
             with open(full_output, 'wb') as f:
-                f.write(wav_data)
+                f.write(flac_data)
                 
             processed += 1
             print(f"Processed: {filename} ({audio.dBFS:.1f}dB -> {adjusted.dBFS:.1f}dB)")
