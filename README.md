@@ -18,30 +18,56 @@ but in some cases, there might be a small loss of quality)
 (The .data file extension is a requirement of the my game engine)
 
 
-### Usage
+### Installation
 
-#### Linux
-[Install ffmpeg](https://ffmpeg.org/download.html)    
-`(sudo) apt install ffmpeg` e.g. for Debian/Ubuntu
-
-
-In Debian 12 (which I use), there is no `pip` installed by default,   
-and installing Python modules causes errors.  
-I recommend installing the dependency using the command:   
-`(sudo) apt install python3-pydub`
-
-For others, you can use the command
-`pip3 install pydub`
-
-And run: `python3 tool.py`
-
-#### Windows/MacOS
-[Install ffmpeg](https://ffmpeg.org/download.html).   
-For MacOS: `brew install ffmpeg`
-
+#### Windows
+[Install ffmpeg](https://ffmpeg.org/download.html#build-windows) and [install python](https://www.python.org/downloads/windows/).   
+After that:
 ```
 pip install pydub
-python tool.py
+```
+
+#### Linux
+Firstly, install [ffmpeg](https://ffmpeg.org/):   
+For Debian-based:
+```
+sudo apt install ffmpeg
+```
+For Arch-based
+```
+sudo pacman -S ffmpeg
+```
+For RHEL-based (Note: you need to enable [EPEL](https://docs.fedoraproject.org/en-US/epel/) and [RPM Fusion](https://docs.fedoraproject.org/en-US/quick-docs/rpmfusion-setup/) first):
+```
+sudo dnf install ffmpeg ffmpeg-devel
+```
+
+After that install pip, in most cases, you can install like this:
+```
+pip3 install pydub
+```
+
+However in Debian 12 (which I used), there is no `pip` installed by default,   
+and installing Python modules causes errors.  
+I recommend installing the dependency using the command:   
+```
+sudo apt install python3-pydub
+```
+
+#### MacOS
+
+For MacOS (in example python version 3.6 but you can set your own): 
+```
+sudo port install ffmpeg
+sudo port install python36
+sudo port install py36-pip
+sudo port select --set python3 python36
+sudo port select --set pip3 pip36
+```
+
+### Usage
+```
+python3 main.py
 ```
 
 ### Output
