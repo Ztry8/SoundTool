@@ -13,11 +13,13 @@ def process_folder(input_path, output_path, target_dBFS):
     processed = 0
     
     for filename in os.listdir(input_path):
-        if not filename.endswith('.data'):
+        if not filename.lower().endswith(('.wav', '.ogg', '.flac')):
             continue
             
         full_input = os.path.join(input_path, filename)
-        full_output = os.path.join(output_path, filename)
+
+        base_name = os.path.splitext(filename)[0]
+        full_output = os.path.join(output_path, base_name + '.flac')
         
         try:
             with open(full_input, 'rb') as f:
