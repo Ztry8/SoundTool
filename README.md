@@ -63,11 +63,12 @@ sudo port install python36
 sudo port install py36-pip
 sudo port select --set python3 python36
 sudo port select --set pip3 pip36
+python3 -m pip install pydub
 ```
 
 ### Usage
 ```
-python3 main.py
+python3 tool.py
 ```
 
 ### Output
