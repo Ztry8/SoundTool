@@ -9,14 +9,10 @@ This program adjusts all sounds to the same volume.
 
 The music folder and SFX folder paths are input.  
 The files in the folders have a .data extension, but the data inside is in .ogg/.wav/.flac format.  
-The script puts all the files on the same volume level and saves the data as a .flac file,
-but in .data file format.
+The script puts all the files on the same volume level and saves the data as a .flac file
 
 (Processed sounds usually stay the same quality,   
 but in some cases, there might be a small loss of quality)
-
-(The .data file extension is a requirement of the my game engine)
-
 
 ### Installation
 
@@ -84,16 +80,16 @@ Sound Effects (SFX): -18.0 dBFS
 Music: -23.0 dBFS
 
 Processing SFX...
-Detected WAV: melee_attack1.data
-Processed: melee_attack1.data (-13.3dB -> -18.0dB)
-Detected OGG: door_open.data
-Processed: door_open.data (-22.7dB -> -18.8dB)
+Detected WAV: melee_attack1.ogg
+Processed: melee_attack1.ogg (-13.3dB -> -18.0dB)
+Detected OGG: door_open.ogg
+Processed: door_open.ogg (-22.7dB -> -18.8dB)
 
 Processing music...
-Detected OGG: day.data
-Processed: day.data (-41.3dB -> -23.0dB)
-Detected OGG: night.data
-Processed: night.data (-40.9dB -> -23.0dB)
+Detected OGG: day.ogg
+Processed: day.ogg (-41.3dB -> -23.0dB)
+Detected OGG: night.ogg
+Processed: night.ogg (-40.9dB -> -23.0dB)
 
 SFX: 2 files processed
 Music tracks: 2 files processed
